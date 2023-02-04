@@ -4,7 +4,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:3.3.2"
+        classpath "com.android.tools.build:gradle:7.2.1"
     }
 }
 
@@ -20,11 +20,11 @@ group = "com.sch.stetho"
 version = "1.0.0"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdkVersion 30
+        targetSdkVersion 31
     }
 
     lintOptions {
@@ -37,36 +37,24 @@ android {
     }
 }
 
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
 repositories {
     google()
     jcenter()
 }
 
 dependencies {
-    implementation "net.zetetic:android-database-sqlcipher:3.5.9"
-    implementation "com.facebook.stetho:stetho:1.5.0"
+    
+    implementation 'androidx.sqlite:sqlite:2.1.0'
+    implementation project(path: ':stetho')
+    compileOnly files('android-database-sqlcipher-classes.jar', 'android-database-sqlcipher-ndk.jar')
+
 }
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.android
-        }
-    }
-}
 
-bintray {
-    user = findProperty("BINTRAY_USER")
-    key = findProperty("BINTRAY_KEY")
-    publish = true
-    pkg {
-        repo = "maven"
-        name = "stetho-sqlcipher"
-        licenses = ["Apache-2.0"]
-        vcsUrl = "https://github.com/technoir42/stetho-sqlcipher.git"
-        version {
-            name = project.version
-        }
-        publications = ["maven"]
-    }
-}

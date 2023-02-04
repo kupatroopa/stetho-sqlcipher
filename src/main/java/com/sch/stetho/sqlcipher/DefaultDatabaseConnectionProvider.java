@@ -10,6 +10,7 @@ public class DefaultDatabaseConnectionProvider implements DatabaseConnectionProv
 
     public DefaultDatabaseConnectionProvider(DatabasePasswordProvider databasePasswordProvider) {
         this.databasePasswordProvider = databasePasswordProvider;
+        System.loadLibrary("sqlcipher");
     }
 
     @Override
